@@ -1,10 +1,28 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import Layout from '@/views/Layout'
-
 const routes = [
   {
     path:'/',
-    component:Layout
+    name:'Layout',
+    component:() => import('@/views/Layout'),
+
+        components:{
+          default:() => import('@/views/Discover'),
+          Podcasting:() => import('@/views/Podcasting')
+        },
+        children:[
+          {
+            path:'/discover',
+            components:{
+              Discovering:() => import('@/views/Discover/components/discover.vue')
+            }
+          },
+          {
+            path:'/view',
+            components:{
+              Podcasting:() => import('@/views/Podcasting/components/view.vue')
+            }
+      }
+    ]
   }
 ]
 

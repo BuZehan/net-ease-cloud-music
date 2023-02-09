@@ -1,69 +1,44 @@
 <template>
     <div ref="container" class="container">
-        <!-- 顶部提示栏 -->
-        <!-- <AppTopNav :currentPage="currentPage" /> -->
+        <!-- 当前两个模块 -->
         <div class="outer">
             <p>
-                <Home />
+                <router-view></router-view>
             </p>
             <p>
-                <User />
+                <router-view name="Podcasting"></router-view>
             </p>
-            <p>page-3</p>
-            <p>page-4</p>
         </div>
         <!-- 底部导航栏 -->
-        <AppFooterBar @goToPage="goToPage" :currentPage="currentPage"  />
+        <AppFooterBar @goToPage="goToPage" :currentPage="currentPage" />
     </div>
 </template>
 <script>
-import Home from './Home/index.vue';
-import User from './User/idnex.vue';
-import AppTopNav from '@/components/app-top-nav.vue';
-import AppFooterBar from '@/components/app-footer-bar.vue';
-import { ref, nextTick } from 'vue'
+import Discover from "./Discover/index.vue";
+import AppTopNav from "@/components/app-top-nav.vue";
+import AppFooterBar from "@/components/app-footer-bar.vue";
+import { UI } from "@/hooks/Layout";
 export default {
-    name: 'Layout',
+    name: "Layout",
     components: {
-        Home,
-        User,
         AppTopNav,
-        AppFooterBar
+        AppFooterBar,
     },
     setup() {
-        //记录当前页
-        class UI {
-            constructor() {
-                nextTick(() => {
-                    this.container.value.addEventListener("scroll", (e) => {
-                        let scrollLeft = Math.floor(e.target.scrollLeft)
-                        // console.log('scrollLeft:', scrollLeft, 'documentClient:', clientWidth, 'currentPage:', Math.round(scrollLeft / clientWidth) + 1)
-                        this.currentPage.value = Math.round(scrollLeft / window.__clientWidth) + 1
-                    })
-                })
-                this.container = ref(null)
-                this.currentPage = ref(1)
-                this.clientWidth = window.__clientWidth
-            }
-        }
-        let ui = new UI()
-        console.log(ui)
-
-
-
+       //记录当前页
+       let ui = new UI();
+        console.log(ui);
         //跳转页面
         const goToPage = (num) => {
-            console.log(num)
-            ui.container.value.scrollLeft = window.__clientWidth * num
-        }
-
-
+            console.log(num);
+            ui.container.value.scrollLeft = window.__clientWidth * num;
+        };
         return {
             ...ui,
-            goToPage
-        }
-    }
-}
+            goToPage,
+        };
+    },
+};
 </script>
 <style lang="less" scoped>
 .container {
@@ -76,11 +51,10 @@ export default {
     font-size: 0.16rem;
 }
 
-
 .outer {
     background-color: #f5f5f5;
     height: 100%;
-    width: 420vw;
+    width: 220vw;
     display: flex;
     flex-direction: row;
 }
@@ -97,15 +71,15 @@ export default {
 .outer>p {
     scroll-snap-align: start;
     scroll-snap-stop: always;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     background-color: #eee;
     font-weight: 900;
     font-size: 0.16rem;
 
     >div {
-        height: 100%;
-        width: 100%;
+        height: 100vh;
+        width: 100vw;
     }
 }
 </style>

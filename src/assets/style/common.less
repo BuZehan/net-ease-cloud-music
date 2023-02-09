@@ -95,16 +95,53 @@
      line-height: 0;
      clear: both;
    }
-   .fade{
+
+   
+   .Fade{
     &-leave {
       &-active {
         position: absolute;
         width: 100%;
-        transition: opacity .5s .2s;
+        transition: opacity .5s;
         z-index: 1;
       }
       &-to {
         opacity: 0;
       }
     }
+    &-enter {
+      &-active{
+        position: absolute;
+        width: 100%;
+        transition: opacity .5s;
+        z-index: 1;
+      }
+      &-from{
+        opacity: 0;
+      }
+    }
   }
+
+
+  @keyframes toUp {
+      0%{
+        transform: translateY(100%);
+        opacity: 0;
+      }
+      100%{
+        transform: translateY(0);
+        opacity: 1;
+      }
+  }
+
+  //展示详情页
+  #showData{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 8888;
+    width: 100vw;
+    background-color: #ffffff;
+    height: 100vh;
+    animation: toUp 0.4s ease-in-out alternate;
+   }

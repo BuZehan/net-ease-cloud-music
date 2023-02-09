@@ -84,12 +84,41 @@ ul {
   line-height: 0;
   clear: both;
 }
-.fade-leave-active {
+.Fade-leave-active {
   position: absolute;
   width: 100%;
-  transition: opacity 0.5s 0.2s;
+  transition: opacity 0.5s;
   z-index: 1;
 }
-.fade-leave-to {
+.Fade-leave-to {
   opacity: 0;
+}
+.Fade-enter-active {
+  position: absolute;
+  width: 100%;
+  transition: opacity 0.5s;
+  z-index: 1;
+}
+.Fade-enter-from {
+  opacity: 0;
+}
+@keyframes toUp {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+#showData {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 8888;
+  width: 100vw;
+  background-color: #ffffff;
+  height: 100vh;
+  animation: toUp 0.4s ease-in-out alternate;
 }
