@@ -37,5 +37,7 @@ function auto() {
     let clientWidth = document.documentElement.clientWidth
     let rootFS = clientWidth * 100 / 375
     document.documentElement.style.fontSize = rootFS + 'px'
+    window.__clientWidth = clientWidth
+    console.log('auto')
 }
 window.onresize = auto
