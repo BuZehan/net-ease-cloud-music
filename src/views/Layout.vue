@@ -15,13 +15,11 @@
 </template>
 <script>
 import Discover from "./Discover/index.vue";
-import AppTopNav from "@/components/app-top-nav.vue";
 import AppFooterBar from "@/components/app-footer-bar.vue";
 import { UI } from "@/hooks/Layout";
 export default {
     name: "Layout",
     components: {
-        AppTopNav,
         AppFooterBar,
     },
     setup() {
@@ -36,6 +34,8 @@ export default {
         return {
             ...ui,
             goToPage,
+
+            
         };
     },
 };
@@ -52,7 +52,7 @@ export default {
 }
 
 .outer {
-    background-color: #f5f5f5;
+    background-color: #ffffff;
     height: 100%;
     width: 220vw;
     display: flex;
@@ -73,7 +73,7 @@ export default {
     scroll-snap-stop: always;
     width: 100vw;
     height: 100vh;
-    background-color: #eee;
+    background-color: hsl(0, 0%, 100%);
     font-weight: 900;
     font-size: 0.16rem;
 

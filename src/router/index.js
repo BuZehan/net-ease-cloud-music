@@ -13,7 +13,7 @@ const routes = [
           {
             path:'/discover',
             components:{
-              Discovering:() => import('@/views/Discover/components/discover.vue')
+          
             }
           },
           {

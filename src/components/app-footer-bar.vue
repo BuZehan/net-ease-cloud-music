@@ -1,20 +1,30 @@
 <template>
     <div class="footer-bar">
         <!-- <p :class="{ active: currentPage === i + 1 }" v-for="item,i in tabBar" @click="goToPage(i)" :key="i">{{ item }}</p> -->
-        <p :class="{ active: currentPage === 1 }" @click="goToPage(0)">
-            <i class="iconfont icon-wangyiyunyinle" style="color:#bfc;"></i>
-            发现
-        </p>
-        <p :class="{ active: currentPage === 2 }" @click="goToPage(1)">
-            <i class="iconfont icon-31wode"></i>
-            用户
-        </p>
+
+
+        <tabbar v-model="active">
+            <tabbar-item icon="home-o"  @click="goToPage(0)">
+                    发现
+            </tabbar-item>
+            <tabbar-item icon="friends-o"  @click="goToPage(1)">
+                    用户
+            </tabbar-item>
+            <!-- <tabbar-item icon="friends-o">标签</tabbar-item>
+            <tabbar-item icon="setting-o">标签</tabbar-item> -->
+        </tabbar>
+
     </div>
 </template>
 <script>
-import { ref } from 'vue'
+import { Tabbar, TabbarItem } from 'vant';
+import { ref, watch } from 'vue'
 export default {
     name: "AppFooterBar",
+    components:{
+        Tabbar,
+        TabbarItem
+    },
     props: {
         currentPage: {
             type: Number,
@@ -22,15 +32,19 @@ export default {
         }
     },
     setup(props, { emit }) {
-        const tabBar = ref(null)
-        tabBar.value = ['首页', '我的']
+        const active = ref(0);
         const goToPage = (i) => {
             emit('goToPage', i)
         }
-
+        watch(() => props.currentPage,(v) => {
+            //切换tabbar
+            active.value = (v-1)
+        },{
+            immediate:true
+        })
         return {
-            tabBar,
-            goToPage
+            goToPage,
+            active
         }
     }
 }
@@ -42,25 +56,14 @@ export default {
     z-index: 5000;
     left: 0;
     right: 0;
-    bottom: -0.02rem;
-    height: 0.50rem;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background: #fff;
-    font-size: 0.14rem;
-
-    p {
-        width: 50vw;
-        text-align: center;
-        height: 100%;
-        line-height: 0.50rem;
-        transition: all 0.4s;
-
-    }
+    bottom: 0;
+    height: 45px;
 }
-
-.active {
-    background-color: rgba(235, 235, 235, 0.904);
+:deep(.van-tabbar) {
+    height: 45px;
+}
+:deep(.van-tabbar-item--active){
+    color: var(--van-tabbar-item-active-color);
+    background-color: var(--van-tabbar-item-active-background);
 }
 </style>
