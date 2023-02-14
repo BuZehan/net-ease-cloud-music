@@ -18,27 +18,16 @@
 </template>
 <script>
 import { Swipe, SwipeItem } from 'vant';
-import { findHomePage } from '@/api/discovering';
-import { ref } from 'vue'
 
 export default {
     name: "DiscoverSwipe",
     components: {
         Swipe, SwipeItem
     },
-    setup() {
-        const banners = ref(null)
-        const data = ref(null)
-        findHomePage().then(res => {
-            data.value = res
-            banners.value = res.data.blocks[0].extInfo.banners
-            console.log('首页res :', res)
-            console.log('banners :', banners)
-        }).catch(err => console.log('err :', err))
-
-        return {
-            banners,
-            data
+    props:{
+        banners:{
+            type:Array,
+            default:() => []
         }
     }
 }

@@ -37,8 +37,9 @@ export default {
         height: 60px;
       .date{
         position: absolute;
-        top:1px;
+        top:2.3px;
         margin-right: 0.2px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         transform: scale(0.8);
         color: rgb(255, 255, 255);
       }

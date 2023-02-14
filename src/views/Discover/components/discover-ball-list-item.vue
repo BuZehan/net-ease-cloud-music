@@ -1,7 +1,7 @@
 <template>
     <div id="ListItem">
         <DiscoverBallList ref="target" v-if="ballList">
-            <p v-for="(icon, i) in ballList" class="ball-wrapper">
+            <p @click="getDetailInfo(icon.id)" v-for="(icon, i) in ballList" class="ball-wrapper">
                 <img v-lazy="icon.iconUrl" alt="">
                 <span>{{ icon.name }}</span>
             </p>
@@ -15,10 +15,10 @@
     </div>
 </template>
 <script>
-import { findBallList } from '@/api/discovering';
+import { findBallList,findMusicDetail } from '@/api/discovering';
 import DiscoverBallList from './discover-ball-list.vue'
 
-import { onMounted, ref } from 'vue'
+import { ref, watch } from 'vue'
 export default {
     name: "DiscoverBallListItem",
     components: {
@@ -28,24 +28,39 @@ export default {
         const ballList = ref(null)
         const target = ref(null)
         const target_a = ref(null)
-
+        //请求首页小球数据
         findBallList().then((result) => {
             ballList.value = result.data
         }).catch((err) => {
         })
-        onMounted(() => {
-            setTimeout(() => {
+        //添加小球左右滑动条
+        const scrollFn = () => {
+            if (target.value) {
                 target.value.$el.addEventListener("scroll", (e) => {
                     let scrollLeft = Math.floor(e.target.scrollLeft)
                     target_a.value.style.transform = `translateX(${scrollLeft / 20}px)`
                 })
-            }, 500)
-        })
+            }
+        }
+        watch(() => target.value, () => {
+             scrollFn()
+        }, { immediate: true })
+ 
+        
+        //获取详情 & 跳转 (需要登录)
+        const getDetailInfo = (id) => {
+            findMusicDetail(id).then(res => {
+                console.log('res :', res)
+            })
+        }
+
+
 
         return {
             ballList,
             target,
-            target_a
+            target_a,
+            getDetailInfo
         }
     }
 }

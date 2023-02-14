@@ -1,7 +1,8 @@
 // vue3.0插件写法要素：导出一个对象，有install函数，默认传入了app应用实例，app基础之上扩展
 // 若果要挂载原型 app.config.globalProperties
 import defaultImg from '@/assets/image/loding.svg'
-
+import { Overlay,Button,Swipe, SwipeItem  } from 'vant';
+const VantArray = [Overlay,Button,Swipe, SwipeItem ]
 export default {
     install(app) {
         remRefresh()
@@ -18,6 +19,11 @@ export default {
             const component = importFn(key).default
             // 注册组件
             app.component(component.name, component)
+        })
+
+        //注册Vant组件
+        VantArray.forEach((item) => {
+            app.component(item.name,item)
         })
     }
 }
@@ -56,7 +62,7 @@ window.addEventListener('pageshow', () => {
     remRefresh()
 })
 //函数防抖
-let timeoutId = null;
+let timeoutId= null;
 window.addEventListener('resize', () => {
     timeoutId && clearTimeout(timeoutId)
     timeoutId = setTimeout(() => {

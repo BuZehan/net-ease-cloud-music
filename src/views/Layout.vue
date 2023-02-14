@@ -8,6 +8,7 @@
             <p>
                 <router-view name="Podcasting"></router-view>
             </p>
+            
         </div>
         <!-- 底部导航栏 -->
         <AppFooterBar @goToPage="goToPage" :currentPage="currentPage" />
@@ -49,6 +50,7 @@ export default {
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
     font-size: 0.16rem;
+    
 }
 
 .outer {
