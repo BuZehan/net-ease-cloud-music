@@ -21,6 +21,8 @@
                     :data="blockObject.HOMEPAGE_BLOCK_PLAYLIST_RCMD" />
                 <DiscoverBlocksTypeSecond v-if="blockObject.HOMEPAGE_BLOCK_STYLE_RCMD"
                     :data="blockObject.HOMEPAGE_BLOCK_STYLE_RCMD" />
+                <DiscoverBlocksTypeThrid v-if="blockObject.HOMEPAGE_BLOCK_TOPLIST"
+                    :data="blockObject.HOMEPAGE_BLOCK_TOPLIST" />
             </div>
         </div>
 
@@ -36,6 +38,7 @@ import DiscoverSwipe from './components/discover-swipe.vue';
 import DiscoverBallListItem from './components/discover-ball-list-item.vue';
 import DiscoverBlocksTypeFirst from './components/discover-blocks-type-first.vue'
 import DiscoverBlocksTypeSecond from './components/discover-blocks-type-second.vue'
+import DiscoverBlocksTypeThrid from './components/discover-blocks-type-thrid.vue';
 import { reactive, ref } from 'vue'
 import { findHomePage } from '@/api/discovering';
 
@@ -44,17 +47,16 @@ export default {
         DiscoveringTop, DiscoverSwipe,
         DiscoverBallListItem,
         DiscoverBlocksTypeFirst,
-        DiscoverBlocksTypeSecond
+        DiscoverBlocksTypeSecond,
+        DiscoverBlocksTypeThrid
     },
     name: 'Discovering',
     setup() {
-        const data = ref(null)
         const banners = ref(null) //轮播图Banner
         const blocks = ref(null)  //blocks数据
         let blockObject = reactive({})
         //获取首页数据
         findHomePage().then(res => {
-            data.value = res
             console.log('首页res :', res)
             //轮播图数据
             banners.value = res.data.blocks[0].extInfo.banners
@@ -62,7 +64,7 @@ export default {
             blocks.value = res.data.blocks.slice(1)
             console.log('blocks.value :', blocks.value)
 
-            //组装block需要的数据   登录后可能顺序随机打乱
+            //组装block需要的数据(除Banners)   登录后可能顺序随机打乱
             blockObject.value = {
                 HOMEPAGE_BLOCK_PLAYLIST_RCMD: null,
                 HOMEPAGE_BLOCK_STYLE_RCMD: null,
@@ -93,6 +95,9 @@ export default {
                         uiElement: item.uiElement
                     }
                 }
+                if (item.blockCode === 'HOMEPAGE_BLOCK_MGC_PLAYLIST') {
+
+                }
             });
             console.log('blockObject :', blockObject)
         }).catch(err => console.log('err :', err))
@@ -112,13 +117,12 @@ export default {
         width: 100vw;
         overflow-y: scroll !important;
         overflow-x: scroll;
-
         #BlockWrapper {
             width: 100vw;
             margin-top: 10px;
             box-sizing: border-box;
             position: relative;
-            box-shadow: 0px 1px 1px #88888823;
+            box-shadow: 0px 1px 1px #88888810;
             margin-bottom: 200px;
         }
     }

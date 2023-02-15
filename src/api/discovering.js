@@ -10,3 +10,6 @@ export const findBallList = () => {
 
 //获取每日推荐
 export const findMusicDetail = () => request('/recommend/songs','get',{})
+
+//获取歌单详情
+export const findPlayListDetail = (id) => request(`/playlist/detail`,'get',{id})

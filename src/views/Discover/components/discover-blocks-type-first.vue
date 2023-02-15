@@ -8,7 +8,7 @@
         </p>
         <div class="block-items">
             <div>
-                <p v-for="(item, i) in data.creatives" :key="i" class="item">
+                <p @click="getDetail(item.creativeId)" v-for="(item, i) in data.creatives" :key="i" class="item">
                     <a href="javascript:;">
                         <img v-if="item.uiElement" v-lazy="item.uiElement.image.imageUrl" alt="">
                         <app-skeleton v-else animated></app-skeleton>
@@ -21,6 +21,7 @@
     </div>
 </template>
 <script>
+import {findPlayListDetail} from '@/api/discovering'
 import { Icon } from 'vant'
 export default {
     name: "DiscoverBlocksTypeFirst",
@@ -35,10 +36,16 @@ export default {
     },
     setup(props, { emit }) {
 
+        const getDetail = async (id) => {
+            console.log('id :', id)
+            let res = await findPlayListDetail(id)
+            console.log('res :', res)
+        }
+
         const clickMore = (e) => {
-            emit('clickMore', "点击更多")
         }
         return {
+            getDetail,
             clickMore
         }
     }
@@ -60,7 +67,6 @@ export default {
             color: #555;
         }
     }
-    
     .block-items {
         width: 100vw;
         height: 175px;
@@ -68,17 +74,14 @@ export default {
         box-shadow: 0px 1px 1px #88888823;
         margin-bottom: 5px;
         margin-top: 7px;
-    
         div {
             display: flex;
             justify-content: flex-start;
             align-items: center;
             padding: 0 3px;
-    
             .item {
                 width: 120px;
                 height: 150px;
-    
                 a {
                     display: inline-block;
                     width: 105px;
@@ -92,7 +95,6 @@ export default {
                         height: 100%;
                     }
                 }
-    
                 span {
                     display: inline-block;
                     width: 130px;
