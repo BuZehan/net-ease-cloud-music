@@ -1,0 +1,22 @@
+# GET https://api.openai.com/v1/models
+# Accept: application/json
+# Authorization: Bearer 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
+# User-Agent: Apifox/1.0.0 (https://www.apifox.cn)
+# Accept: */*
+# Host: api.openai.com
+# Connection: keep-alive
+
+POST https://api.openai.com/v1/images/generations HTTP/1.1
+Host: api.openai.com
+Authorization: Bearer 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
+User-Agent: Apifox/1.0.0 (https://www.apifox.cn)
+Content-Type: application/json
+Accept: */*
+Host: api.openai.com
+Connection: keep-alive
+
+{
+    "prompt": "女朋友",
+    "n": 2,
+    "size": "1024x1024"
+}
